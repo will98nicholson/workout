@@ -24,14 +24,29 @@ router.post('/api/workouts', (req, res) => {
         });
 });
 
-// router.put('/api/workouts/:id', (req, res) => {
-//     Workout.findByIdAndUpdate(req.params.id, {
-//         $push: {
-//             exercises: req.body
-//         }
-//     })
-// })
+router.put('/api/workouts/:id', (req, res) => {
+    db.Workout.findByIdAndUpdate(req.params.id, {
+        $push: {
+            exercises: req.body
+        }
+    }).then(workoutData => {
+        res.json(workoutData)
+    })
+        .catch(err => {
+            res.json(err);
+        });
+});
 
+router.get('/api/workouts/range', (req, res) => {
+
+    db.Workout.find({})
+        .then(workoutData => {
+            res.json(workoutData)
+        })
+        .catch(err => {
+            res.json(err);
+        });
+});
 
 
 module.exports = router;
