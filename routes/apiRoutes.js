@@ -1,16 +1,27 @@
 const router = require('express').Router();
 // const router = require('module').Router();
-// const Workout = require('../models/Workout');
+const db = require('../models');
 
 router.get('/api/workouts', (req, res) => {
     console.log('API connected')
-    // Workout.find({})
-    //     .then(workoutData => {
-    //         res.json(workoutData)
-    //     })
-    //     .catch(err => {
-    //         res.json(err);
-    //     });
+    db.Workout.find({})
+        .then(workoutData => {
+            res.json(workoutData)
+        })
+        .catch(err => {
+            res.json(err);
+        });
+});
+
+router.post('/api/workouts', (req, res) => {
+
+    db.Workout.create({})
+        .then(workoutData => {
+            res.json(workoutData)
+        })
+        .catch(err => {
+            res.json(err);
+        });
 });
 
 // router.put('/api/workouts/:id', (req, res) => {
