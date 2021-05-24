@@ -4,7 +4,12 @@ const db = require('../models');
 
 router.get('/api/workouts', (req, res) => {
     console.log('API connected')
-    db.Workout.find({})
+    db.Workout.aggregate([
+        {
+            $addFields: {
+                totalDuration: { $sum: "$exercises.duration" },
+            }
+        }])
         .then(workoutData => {
             res.json(workoutData)
         })
